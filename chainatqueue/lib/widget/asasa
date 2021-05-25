@@ -1,0 +1,471 @@
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.90,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.90,
+              child: Column(
+                children: <Widget>[
+                  Padding(padding: EdgeInsets.only(top: 40.0)),
+                  Row(
+                    children: <Widget>[
+                      IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          iconSize: 36.0,
+                          color: Color(
+                            0xff828282,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                      Text(
+                        'รายละเอียดใบสั่งยา',
+                        style: GoogleFonts.prompt(
+                          fontSize: 24.0,
+                          color: Color(
+                            0xff116EA8,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Card(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Padding(padding: EdgeInsets.only(top: 45.0)),
+                              SizedBox(
+                                  child: Text(
+                                    '  นายพุทธิพงษ์  คาดสนิท',
+                                    // "$departmentName",
+                                    style: TextStyle(
+                                      color: Color(
+                                        0xff116EA8,
+                                      ),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: "Kanit",
+                                    ),
+
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  width: 300),
+                            ],
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.85,
+                            child: Divider(
+                                height: 10,
+                                thickness: 1.25,
+                                color: Colors.grey[400]),
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 7.0)),
+                          Row(
+                            children: [
+                              Column(
+                                children: [
+                                  SizedBox(
+                                      child: Text(
+                                        '         HN :',
+                                        // "$departmentName",
+                                        style: TextStyle(
+                                          color: Color(
+                                            0xff828282,
+                                          ),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Kanit",
+                                        ),
+
+                                        // textAlign: TextAlign.left,
+                                      ),
+                                      width: 150),
+                                  SizedBox(
+                                      child: Text(
+                                        '         สถานที่รับยา :',
+                                        // "$departmentName",
+                                        style: TextStyle(
+                                          color: Color(
+                                            0xff828282,
+                                          ),
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Kanit",
+                                        ),
+                                      ),
+                                      width: 150),
+                                  SizedBox(
+                                      child: Text(
+                                        ' เลขที่ใบสั่งยา :',
+                                        // "$departmentName",
+                                        style: TextStyle(
+                                          color: Color(
+                                            0xff828282,
+                                          ),
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Kanit",
+                                        ),
+
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      width: 150),
+                                  SizedBox(
+                                      child: Text(
+                                        '         วันที่  :',
+                                        // "$departmentName",
+                                        style: TextStyle(
+                                          color: Color(
+                                            0xff828282,
+                                          ),
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Kanit",
+                                        ),
+
+                                        // textAlign: TextAlign.center,
+                                      ),
+                                      width: 150),
+                                  SizedBox(
+                                      child: Text(
+                                        ' แพทย์สั่งยา  :',
+                                        // "$departmentName",
+                                        style: TextStyle(
+                                          color: Color(
+                                            0xff828282,
+                                          ),
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Kanit",
+                                        ),
+
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      width: 150),
+                                  SizedBox(
+                                      child: Text(
+                                        ' แผนก/คลินิก  :',
+                                        // "$departmentName",
+                                        style: TextStyle(
+                                          color: Color(
+                                            0xff828282,
+                                          ),
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Kanit",
+                                        ),
+
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      width: 150),
+                                ],
+                              ),
+                              // Column(children: [
+                              //  SizedBox(
+                              //         child: Divider(
+                              //   height: 10,
+                              //   thickness: 1.25,
+                              //   color: Colors.grey[400]
+                              //   ),
+                              //  ),
+                              // ],),
+                              Padding(padding: EdgeInsets.only(top: 17.0)),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                      child: Text(
+                                        '00000000',
+                                        // "$departmentName",
+                                        style: TextStyle(
+                                          color: Color(
+                                            0xff2D9CDB,
+                                          ),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Kanit",
+                                        ),
+
+                                        textAlign: TextAlign.left,
+                                      ),
+                                      width: 150),
+                                  SizedBox(
+                                    child: Text(
+                                      '[ชื่อร้านขายยา]',
+                                      // "$departmentName",
+                                      style: TextStyle(
+                                        color: Color(
+                                          0xff2D9CDB,
+                                        ),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "Kanit",
+                                      ),
+
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    width: 150,
+                                  ),
+                                  SizedBox(
+                                    child: Text(
+                                      '[เลขที่ใบสั่งยา]',
+                                      // "$departmentName",
+                                      style: TextStyle(
+                                        color: Color(
+                                          0xff2D9CDB,
+                                        ),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "Kanit",
+                                      ),
+
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    width: 150,
+                                  ),
+                                  SizedBox(
+                                    child: Text(
+                                      '[วันที่]',
+                                      // "$departmentName",
+                                      style: TextStyle(
+                                        color: Color(
+                                          0xff2D9CDB,
+                                        ),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "Kanit",
+                                      ),
+
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    width: 150,
+                                  ),
+                                  SizedBox(
+                                    child: Text(
+                                      '[ชื่อแพทย์]',
+                                      // "$departmentName",
+                                      style: TextStyle(
+                                        color: Color(
+                                          0xff2D9CDB,
+                                        ),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "Kanit",
+                                      ),
+
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    width: 150,
+                                  ),
+                                  SizedBox(
+                                    child: Text(
+                                      '[ชื่อแผนก/คลินิก]',
+                                      // "$departmentName",
+                                      style: TextStyle(
+                                        color: Color(
+                                          0xff2D9CDB,
+                                        ),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "Kanit",
+                                      ),
+
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    width: 150,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          // Padding(padding: EdgeInsets.only(top: 7.0)),
+                          SizedBox(
+                            height: 20.0,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Expanded(
+                    child: Center(
+                        child: RefreshIndicator(
+                      onRefresh: _refreshData,
+                      child: FutureBuilder<List<Rxde>>(
+                        future: rxde,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                return AppointItem(
+                                  rxde: snapshot.data[index],
+                                );
+                              },
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text("error${snapshot.error}");
+                          } else if (!loading && !snapshot.hasData) {
+                            return InkWell(
+                              onTap: () {
+                                // MaterialPageRoute route =
+                                //     MaterialPageRoute(builder: (value) => HaveAppointment());
+                                // Navigator.push(context, route);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                height: 950.0,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage('images/ruru.png'))),
+                                child: Text(
+                                  'ท่านยังไม่มีผลตรวจประจำปี',
+                                  style: GoogleFonts.prompt(
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey[600],
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            );
+                          }
+
+                          // By default, show a loading spinner.
+                          return CircularProgressIndicator();
+                        },
+                      ),
+                    )),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AppointItem extends StatelessWidget {
+  AppointItem({
+    Key key,
+    this.rxde,
+  }) : super(key: key);
+  final Rxde rxde;
+  // final Hresulty hresulty;
+  // final Function testfn;
+
+  var hnso;
+  bool staus;
+
+  Widget _CardItemRight(String title, String description) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+            flex: 15,
+            child: Text(
+              '  $title',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            )),
+        Expanded(
+            flex: 60,
+            child: Text(
+              description,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            )),
+      ],
+    );
+  }
+
+  bool status;
+  @override
+  Widget build(BuildContext context) {
+    // return Card(
+    //   elevation: 10,
+    //   color: Colors.white,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.circular(5.0),
+    //   ),
+    //   child: Container(
+    //     width: MediaQuery.of(context).size.width,
+    //     child: Column(
+    //       children: [
+    //         SizedBox(
+    //             child: Text(
+    //               'รายการที่ 1',
+    //               // "$departmentName",
+    //               style: TextStyle(
+    //                 color: Color(
+    //                   0xff4F4F4F,
+    //                 ),
+    //                 fontSize: 16,
+    //                 fontWeight: FontWeight.w400,
+    //                 fontFamily: "Kanit",
+    //               ),
+    //               textAlign: TextAlign.left,
+    //             ),
+    //             width: MediaQuery.of(context).size.width * 0.85),
+    //         SizedBox(
+    //             child: Text(
+    //              '',
+    //               // "$departmentName",
+    //               style: TextStyle(
+    //                 color: Color(
+    //                   0xff116EA8,
+    //                 ),
+    //                 fontSize: 18,
+    //                 fontWeight: FontWeight.w400,
+    //                 fontFamily: "Kanit",
+    //               ),
+    //               // textAlign: TextAlign.center,
+    //             ),
+    //             width: MediaQuery.of(context).size.width * 0.85),
+    //         SizedBox(
+    //             child: Text('',
+                 
+    //               // "$departmentName",
+    //               style: TextStyle(
+    //                 color: Color(
+    //                   0xff116EA8,
+    //                 ),
+    //                 fontSize: 18,
+    //                 fontWeight: FontWeight.w400,
+    //                 fontFamily: "Kanit",
+    //               ),
+    //               textAlign: TextAlign.right,
+    //             ),
+    //             width: MediaQuery.of(context).size.width * 0.85),
+    //         Container(
+    //           width: MediaQuery.of(context).size.width * 0.85,
+    //           child:
+    //               Divider(height: 15, thickness: 1.25, color: Colors.grey[400]),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
+  }
+
+
+}
