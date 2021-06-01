@@ -1,0 +1,26 @@
+ birthdate= birth;
+          count_select= countSselect;
+          fname= fname;
+          lname= lname;
+          maininscl= maininscl;
+          maininscl_main= maininsclM;
+          maininscl_name= pt;
+          nation= nation;
+          person_id= personId;
+          primary_amphur_name= amphur;
+          primary_moo= moo;
+          primary_mooban_name= mooban;
+          primary_province_name= province;
+          primary_tumbon_name= tumbon;
+          primaryprovince= zipcode;
+          sex= sex;
+          subinscl= subinscl;
+          subinscl_name= pt1;
+          title;
+          title_name;
+          ws_data_sourc;
+          ws_date_request;
+          ws_status;
+          ws_status_desc;
+          wsid
+          wsid_batch

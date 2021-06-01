@@ -1,0 +1,92 @@
+ Card(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        children: [
+                          Padding(padding: EdgeInsets.only(top: 7.0)),
+                          Row(
+                            children: [
+                              Column(
+                                children: [
+                                  SizedBox(
+                                      child: Text(
+                                        'CBC_Basophil     ',
+                                        // "$departmentName",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: Color(
+                                            0xff116EA8,
+                                          ),
+                                        ),
+                                      ),
+                                      width: 150),
+                                  SizedBox(
+                                      child: Text(
+                                        '  ความสมบูรณ์ของเม็ดเลือด      ',
+                                        // "$departmentName",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          color: Color(
+                                            0xff116EA8,
+                                          ),
+                                        ),
+                                      ),
+                                      width: 200),
+                                ],
+                              ),
+                              Padding(padding: EdgeInsets.only(top: 17.0)),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                      child: {widget.hresulty.CBC_Basophil} ==
+                                              null
+                                          ? Text(' - ')
+                                          : Text(
+                                              '${widget.hresulty.CBC_Basophil}',
+                                              // "$departmentName",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Color(
+                                                  0xff116EA8,
+                                                ),
+                                              ),
+
+                                              textAlign: TextAlign.right,
+                                            ),
+                                      width: 90),
+                                  SizedBox(
+                                    child: Text(
+                                      ' [ค่าปกติ]',
+                                      // "$departmentName",
+                                      style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Color(
+                                                  0xff828282,
+                                                ),
+                                              ),
+                                              textAlign: TextAlign.right,
+
+                                    ),
+                                    width: 130,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          // Padding(padding: EdgeInsets.only(top: 7.0)),
+                          SizedBox(
+                            height: 20.0,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),

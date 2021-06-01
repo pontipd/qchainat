@@ -1,0 +1,13 @@
+rx_operator_id: rx_operator_id,
+      hn: hn,
+      vstdate: vstdate,
+      vn: vn,
+      date: date,
+      doctor_id: doctor_id,
+      doctor_name: doctor_name,
+      rx_type: rx_type,
+      drug_status: drug_status,
+      countdrug: countdrug,
+      qfinace: qfinace,
+      data_pharmacy: data_pharmacy,
+     

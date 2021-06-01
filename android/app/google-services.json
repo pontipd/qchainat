@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "708994621578",
+    "project_id": "chainathos-ef609",
+    "storage_bucket": "chainathos-ef609.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708994621578:android:5584b59c33f3eb8f448d73",
+        "android_client_info": {
+          "package_name": "com.flutterthailand.chainatqueue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708994621578-n2ivkv7mn39npq4f3jlee1fgks69crr1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEv7hWsVrrHpoBD9g5Z7eUHgqFTLciP7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708994621578-n2ivkv7mn39npq4f3jlee1fgks69crr1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

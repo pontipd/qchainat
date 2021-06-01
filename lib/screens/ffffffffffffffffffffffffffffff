@@ -1,0 +1,454 @@
+import 'dart:convert';
+import 'dart:convert' as convert;
+import 'package:chainatqueue/models/album.dart';
+import 'package:chainatqueue/models/appoint.dart';
+import 'package:chainatqueue/models/checkhnso.dart';
+import 'package:chainatqueue/models/getAppointment.dart';
+import 'package:chainatqueue/models/gethresult.dart';
+import 'package:chainatqueue/models/getrx.dart';
+import 'package:chainatqueue/models/hresulty.dart';
+
+import 'package:chainatqueue/models/user_model.dart';
+import 'package:chainatqueue/screens/appointmentdetil.dart';
+import 'package:chainatqueue/screens/getmedicine.dart';
+import 'package:chainatqueue/screens/page2.dart';
+import 'package:chainatqueue/screens/queue.dart';
+import 'package:chainatqueue/screens/startouse.dart';
+import 'package:chainatqueue/transitions/enter_exit_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:async/async.dart';
+import 'hresultdetil.dart';
+import 'medicalrecord.dart';
+import 'page1.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+int selectedPage = 0;
+  final _pageOptions = [Page1(), Queue(),Havemedicine(), Page3(),Page2()];
+class Page3 extends StatefulWidget {
+  String ptname, cid, age, pt, inputHn;
+  // Getappointmen getappointment;
+
+  Page3({
+    Key key,
+    this.age,
+    this.cid,
+    this.inputHn,
+    this.ptname,
+    this.pt,
+  }) : super(key: key);
+  @override
+  _Page3State createState() => _Page3State();
+}
+
+class _Page3State extends State<Page3> {
+  Future<List<Album>> futureAlbum;
+  String displayname, inputHn;
+  Future<List<Hresulty>> gethresultys;
+  List<ChackHnso> checkHnso = List();
+  List<GetHresult> gethresulty = List();
+//  Future<List<Hresulty>> gethresults;
+
+  var hnso;
+  ChackHnso chackHnso;
+  String staus;
+  bool status;
+  User user;
+  UserModel patient;
+  bool isHasData = false;
+  List<GetHresult> gethresults = List();
+  var result = [];
+  bool lo = false;
+  bool _ischeckData = false;
+  bool loading = false;
+  var now = DateTime.now();
+  var date;
+  @override
+  void initState() {
+    super.initState();
+    finddisplay();
+
+    // fetchHresulty();
+    loading = true;
+    inputHn = "${widget.inputHn}";
+    print(_auth.currentUser);
+    user = _auth.currentUser;
+    getuser();
+    // getAppointment();
+    // Map<String, dynamic> _map = {
+    //   "hn": "0408812",
+    // };
+    // var json = jsonEncode(_map);
+
+    // medList(json);
+
+    var month = now.month.toString().padLeft(2, '0');
+    var day = now.day.toString().padLeft(2, '0');
+    date = "${now.year}" + "-" + "$month" + "-" + "$day";
+
+    // futureAlbum = fetchAlbum();
+  }
+
+  Future<User> getuser() async {
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc(user.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        //
+        print(documentSnapshot.data());
+        patient = UserModel(hns: documentSnapshot.data()['hns']);
+        // fetch();
+        print(
+            '-----------------------------Document data: ${documentSnapshot.data()} ');
+        hns = patient.hns;
+        var data = jsonEncode({'hn': hns});
+        gethresult(data);
+        print('hns==== $hns');
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
+  }
+
+  // Future medList(json) async {
+  //   print(json);
+  //   var url = Uri.parse(
+  //       'http://chainathospital.org/coreapi/api/v2/get_med_exam_list');
+  //   try {
+  //     final response = await http.post(url,
+  //         headers: {"Content-Type": "application/json"}, body: json);
+  //     print('res**********ssssss*ressssssss = $response');
+  //     var getData = jsonDecode(response.body);
+  //     print('test*** ==> $getData ');
+  //     GetHresult gethresult = GetHresult.fromJson(convert.jsonDecode(getData));
+  //     for (var i = 0; i < gethresult.data.length; i++) {
+  //       setState(() {
+  //         gethresulty.add(gethresult);
+
+  //         // checkhnso();
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print('77777777777$e');
+  //   }
+  // }
+
+  // Future<List<Hresulty>> fetch() async {
+  //   // final response = await http.get(Uri.http('http://chainathospital.org',
+  //   //     '/coreapi/api/v2/get_appointment_list/0408812'));
+
+  //   var header = {'Content-Type': 'application/json'};
+  //   var url = Uri.parse(
+  //       'http://chainathospital.org/coreapi/api/v2/get_med_exam_list');
+
+  //   final response = await http.Client().post(url,
+  //       headers: {"Content-Type": "application/json"}, body: json);
+
+  //   if (response.statusCode == 200) {
+  //     // If the server did return a 200 OK response,
+  //     // then parse the JSON.
+  //     final result = jsonDecode(response.body);
+  //     print('rrrrrr=${result['data']}');
+  //     List data = result['data'];
+  //     setState(() {
+  //       gethresults =Future.value(data.map((job) => new Hresulty.fromJson(job)).toList());
+
+  //       // checkhnso();
+  //     });
+  //   } else {
+  //     // If the server did not return a 200 OK response,
+  //     // then throw an exception.
+  //     throw Exception('Failed to load album');
+  //   }
+  // }
+
+  Future<Null> finddisplay() async {
+    await Firebase.initializeApp().then((value) async {
+      await FirebaseAuth.instance.authStateChanges().listen((event) {
+        displayname = event.displayName;
+        inputHn = event.displayName;
+        print('## = $displayname');
+        print('##12 = $inputHn');
+        // getAppointment();
+      });
+    });
+    // checkAppointment;
+  }
+
+  Future gethresult(var json) async {
+    try {
+      lo = true;
+      // ProgressDialog progressDialog = ProgressDialog(context,
+      //     message: Text("This is the message"),
+      //     title: Text("This is the title"));
+
+      // //You can set Message using this function
+      // progressDialog.setTitle(Text("Loading"));
+      // progressDialog
+      //     .setMessage(Text("Please Wait, Injecting your phone with my virus"));
+      // progressDialog.show();
+
+      print('*********$json');
+      var header = {'Content-Type': 'application/json'};
+      // var url = Uri.parse(
+      //     'http://chainathospital.org/coreapi/api/v2/get_med_exam_list/$inputHn');
+      var url = Uri.parse(
+          'http://chainathospital.org/coreapi/api/v2/get_med_exam_list');
+      final response = await http.post(url, headers: header, body: json);
+
+      if (response.statusCode == 200) {
+        var getData = jsonDecode(response.body);
+        // progressDialog.dismiss();
+
+        setState(() {
+          // print('test ==> $getData ');
+          if (getData['status']) {
+            result = getData['data'];
+            _ischeckData = true;
+            print('xxxxxxxxxxxxxxxxxxxxxxxxx');
+            print(result[0]['hn']);
+            print('==============$result');
+          } else {
+            _ischeckData = false;
+          }
+        });
+
+        // GetHresult gethresult = GetHresult.fromJson(convert.jsonDecode(getData));
+
+        // setState(() {
+        //   if (getData['status'])
+        //     for (var i = 0; i < gethresult.data.length; i++) {
+        //       gethresults.add(gethresult);
+        //     }
+        //   // checkhnso();
+        // });
+        // if (getAppointMent.status == false) {
+        //   date = '';
+        //   department = '';
+        //   doctorname = '';
+        //   reson = '';
+        // } else {
+        //   for (var i = 0; i < getappointments.length; i++) {
+
+        //     date = getAppointMent.data[i].appointDate;
+        //     department = getAppointMent.data[i].department;
+        //     doctorname = getAppointMent.data[i].doctorName;
+        //     reson = getAppointMent.data[i].appointReason;
+        //   }
+        // }
+
+        lo = false;
+      }
+    } catch (e) {
+      lo = false;
+      print('error === $e');
+    }
+    
+  }
+
+  Future _refreshData() async {
+    await Future.delayed(Duration(seconds: 3));
+    setState(() {});
+  }
+
+  Future test(int value) {
+    print(value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.90,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.90,
+              child: Column(
+                children: <Widget>[
+                  Padding(padding: EdgeInsets.only(top: 30.0)),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        'ผลตรวจสุขภาพปรจำปี',
+                        style: GoogleFonts.prompt(
+                          fontSize: 24.0,
+                          color: Color(
+                            0xff089EAD,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 5.0)),
+                  Text(
+                    'ข้อมูล ณ วันที่ 12 ก.พ. 2564 เวลา 12.00 น.',
+                    style: GoogleFonts.kanit(
+                      fontSize: 18.0,
+                      color: Colors.grey[600],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20.0),
+                  SingleChildScrollView(
+                    physics: ScrollPhysics(),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: result.length,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, i) => Container(
+                              width: MediaQuery.of(context).size.width * .95,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 1.0),
+                              child: Card(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 45.0)),
+                                          SizedBox(
+                                              child: Text(
+                                                '    ปี :   ${result[i]['med_exam_year']} ',
+
+                                                // "$departmentName",
+                                                style: TextStyle(
+                                                  color: Color(
+                                                    0xff2D9CDB,
+                                                  ),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Kanit",
+                                                ),
+
+                                                textAlign: TextAlign.left,
+                                              ),
+                                              width: 300),
+                                          // SizedBox(
+                                          //   child: Icon(
+                                          //     Icons.delete_outline,
+                                          //     size: 30,
+                                          //   ),
+                                          //   width:
+                                          //       MediaQuery.of(context).size.width - 392.0,
+                                          // ),
+                                        ],
+                                      ),
+
+                                      // Icon(Icons.date_range_outlined),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.85,
+                                        child: Divider(
+                                            height: 10,
+                                            thickness: 1.25,
+                                            color: Colors.grey[400]),
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.only(top: 7.0)),
+                                      Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              SizedBox(
+                                                  child: Text(
+                                                    'วันที่ :  ${result[i]['med_exam_date']}',
+                                                    style: GoogleFonts.kanit(
+                                                      fontSize: 16.0,
+                                                      color: Colors.grey[600],
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  width: 150),
+                                            ],
+                                          ),
+                                          Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 17.0)),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 45.0)),
+                                          InkWell(
+                                            onTap: () {
+                                              MaterialPageRoute route =
+                                                  MaterialPageRoute(
+                                                      builder: (value) =>
+                                                          Hresultdetail(
+                                                              hresult:
+                                                                  result[i]));
+                                              Navigator.push(context, route);
+                                            },
+                                            child: SizedBox(
+                                              child: Align(
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                child: Text(
+                                                  '  รายละเอียด',
+                                                  // "$departmentName",
+                                                  style: TextStyle(
+                                                    color: Color(
+                                                      0xff219653,
+                                                    ),
+                                                    fontSize: 16.0,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: "Kanit",
+                                                  ),
+
+                                                  textAlign: TextAlign.right,
+                                                ),
+                                              ),
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.8,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      // Padding(padding: EdgeInsets.only(top: 7.0)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      // bottomNavigationBar: BottomBar(),
+    );
+  }
+}

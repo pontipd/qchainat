@@ -1,0 +1,113 @@
+import 'dart:convert';
+
+import 'package:chainatqueue/models/album.dart';
+import 'package:chainatqueue/transitions/enter_exit_route.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'page2.dart';
+
+class Page1 extends StatefulWidget {
+  @override
+  _Page1State createState() => _Page1State();
+}
+
+class _Page1State extends State<Page1> {
+  Future<List<Album>> futureAlbum;
+  bool loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    loading = true;
+    futureAlbum = fetchAlbum();
+  }
+
+  Future<List<Album>> fetchAlbum() async {
+    // final response =
+    await Future.delayed(Duration(seconds: 3));
+    setState(() {
+      loading = false;
+    });
+    //     await http.get(Uri.https('jsonplaceholder.typicode.com', 'albums'));
+
+    // if (response.statusCode == 200) {
+    //   // If the server did return a 200 OK response,
+    //   // then parse the JSON.
+    //   // return Album.fromJson(jsonDecode(response.body));
+
+    //   List result = jsonDecode(response.body);
+
+    //   return result.map((job) => new Album.fromJson(job)).toList();
+    // } else {
+    //   // If the server did not return a 200 OK response,
+    //   // then throw an exception.
+    //   throw Exception('Failed to load album');
+    // }
+  }
+
+  Future _refreshData() async {
+    await Future.delayed(Duration(seconds: 3));
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Screen 1"),
+      ),
+      body: Center(
+          child: RefreshIndicator(
+        onRefresh: _refreshData,
+        child: FutureBuilder<List<Album>>(
+          future: futureAlbum,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const ListTile(
+                          leading: Icon(Icons.album),
+                          title: Text('The Enchanted Nightingale'),
+                          subtitle: Text(
+                              'Music by Julie Gable. Lyrics by Sidney Stein.'),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            TextButton(
+                              child: const Text('BUY TICKETS'),
+                              onPressed: () {/* ... */},
+                            ),
+                            const SizedBox(width: 8),
+                            TextButton(
+                              child: const Text('LISTEN'),
+                              onPressed: () {/* ... */},
+                            ),
+                            const SizedBox(width: 8),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            } else if (!snapshot.hasData && !loading) {
+              return Text('not found');
+            }
+
+            // By default, show a loading spinner.
+            return CircularProgressIndicator();
+          },
+        ),
+      )),
+    );
+  }
+}
